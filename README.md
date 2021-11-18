@@ -4,7 +4,7 @@ For Ververica Hackathon
 
 ## To run
 
-Download Apache Kafka 3.0 from [here](https://www.apache.org/dyn/closer.cgi?path=/kafka/3.0.0/kafka-3.0.0-src.tgz), extract the archive, and navigate into the folder.
+Download the latest version of Apache Kafka from [here](https://kafka.apache.org/downloads), extract the archive, and navigate into the folder.
 
 Start Zookeeper:
 

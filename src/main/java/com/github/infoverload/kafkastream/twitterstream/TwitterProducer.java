@@ -36,16 +36,16 @@ public class TwitterProducer {
         new TwitterProducer().run();
     }
 
-    public void run() throws InterruptedException {
+    public void run() {
 
         logger.info("Setup");
         // set up blocking queues - size these properly based on expected TPS of stream
-        BlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>(1000);
+        BlockingQueue<String> msgQueue = new LinkedBlockingQueue<>(1000);
         // create a twitter client
         Client client = createTwitterClient(msgQueue);
         client.connect();
 
-        Producer producer = createKafkaProducer();
+        Producer<String, String> producer = createKafkaProducer();
 
         while(!client.isDone()) {
             String msg = null;
@@ -57,13 +57,9 @@ public class TwitterProducer {
             }
             if (msg != null) {
                 logger.info(msg);
-                producer.send(new ProducerRecord<>("twitter_tweets", null, msg), new Callback() {
-
-                    @Override
-                    public void onCompletion(RecordMetadata metadata, Exception exception) {
-                        if (exception != null) {
-                            logger.error("Error!", exception);
-                        }
+                producer.send(new ProducerRecord<>("twitter_tweets", null, msg), (metadata, exception) -> {
+                    if (exception != null) {
+                        logger.error("Error!", exception);
                     }
                 });
             }
