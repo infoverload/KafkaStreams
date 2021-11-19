@@ -77,6 +77,12 @@ public class TwitterProducer {
         // these secrets should be read from a config file
         Authentication twitterAuth = new OAuth1(consumerKey, consumerSecret, accessToken, accessSecret);
 
+        // generate the OAuth Access token first and then set it with twitter handle
+        //twitter = new TwitterFactory().getInstance();
+        //twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET_KEY);
+        //AccessToken oauthAccessToken = new AccessToken(getSavedAccessToken(), getSavedAccessTokenSecret());
+        //twitter.setOAuthAccessToken(oauthAccessToken);
+
         ClientBuilder builder = new ClientBuilder()
                 .name("Twitter-Client-01")
                 .hosts(twitterHosts)
